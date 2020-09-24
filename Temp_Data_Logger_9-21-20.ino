@@ -60,15 +60,10 @@ void setup() {
   tft.fillScreen(ST7735_BLACK);
 
   //   Serial.print("Initializing SD card...");
-
   // see if the card is present and can be initialized:
-  while (!SD.begin(chipSelect));
-  //   Serial.println("Card failed, or not present");
-  // don't do anything more:
-  while (!SD.begin(chipselect)) (1);
+  while (!SD.begin(chipSelect)) (1);
 }
 //  Serial.println("Card Initialized.");
-}
 
 void loop() {
 
