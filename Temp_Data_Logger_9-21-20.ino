@@ -62,9 +62,12 @@ void setup() {
   //   Serial.print("Initializing SD card...");
 
   // see if the card is present and can be initialized:
- while(!SD.begin(chipSelect));
-    
-  //  Serial.println("Card Initialized.");
+  while (!SD.begin(chipSelect));
+  //   Serial.println("Card failed, or not present");
+  // don't do anything more:
+  while (!SD.begin(chipselect)) (1);
+}
+//  Serial.println("Card Initialized.");
 }
 
 void loop() {
@@ -128,7 +131,7 @@ void loop() {
   currentMillis = millis();
 
   if (firstTemp == true || currentMillis - previousMillis >= interval) {
-  
+
     previousMillis = currentMillis;
     // clear the last temp
     tft.setTextColor(BLACK);
@@ -157,7 +160,7 @@ void loop() {
     // if the file is available, write to it:
     if (sdcard_file) {
       if (firstTemp) {
-         sdcard_file.println("Record, Log Interval, Millis, Temp (F), Humidity (%), Heat Index (F)");
+        sdcard_file.println("Record, Log Interval, Millis, Temp (F), Humidity (%), Heat Index (F)");
       }
 
       sdcard_file.print(Record);
