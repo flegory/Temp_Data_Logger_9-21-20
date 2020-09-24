@@ -103,12 +103,12 @@ void loop() {
           break;
 
         case 3:
-          interval = 1,800,000;
+          interval = 1, 800, 000;
           logText = "30 min";
           break;
 
         case 4:
-          interval = 3,600,000;
+          interval = 3, 600, 000;
           logText = "1 hr";
           break;
 
@@ -131,7 +131,7 @@ void loop() {
   currentMillis = millis();
 
   if (firstTemp == true || currentMillis - previousMillis >= interval) {
-  
+
     previousMillis = currentMillis;
     // clear the last temp
     tft.setTextColor(BLACK);
@@ -154,28 +154,6 @@ void loop() {
     Humidity = dht.readHumidity(true);
     HeatIndex = dht.computeHeatIndex(TempFahrenheit, Humidity);
     Record++;
-
-    //write temp reading to to SD card
-    File sdcard_file = SD.open("data.txt", FILE_WRITE);
-    // if the file is available, write to it:
-    if (sdcard_file) {
-      if (firstTemp) {
-         sdcard_file.println("Record, Log Interval, Millis, Temp (F), Humidity (%), Heat Index (F)");
-      }
-
-      sdcard_file.print(Record);
-      sdcard_file.print(",");
-      sdcard_file.print(logText);
-      sdcard_file.print(",");
-      sdcard_file.print(currentMillis);
-      sdcard_file.print(",");
-      sdcard_file.print(TempFahrenheit);
-      sdcard_file.print(",");
-      sdcard_file.print(Humidity);
-      sdcard_file.print(",");
-      sdcard_file.println(HeatIndex);
-      sdcard_file.close();
-    }
 
     if (firstTemp)
     {
@@ -232,6 +210,28 @@ void loop() {
     tft.setTextColor(PINK);
     tft.setCursor(10, 130);
     tft.println(Record);
+
+    //write temp reading to to SD card
+    File sdcard_file = SD.open("data.txt", FILE_WRITE);
+    // if the file is available, write to it:
+    if (sdcard_file) {
+      if (firstTemp) {
+        sdcard_file.println("Record, Log Interval, Millis, Temp (F), Humidity (%), Heat Index (F)");
+      }
+
+      sdcard_file.print(Record);
+      sdcard_file.print(",");
+      sdcard_file.print(logText);
+      sdcard_file.print(",");
+      sdcard_file.print(currentMillis);
+      sdcard_file.print(",");
+      sdcard_file.print(TempFahrenheit);
+      sdcard_file.print(",");
+      sdcard_file.print(Humidity);
+      sdcard_file.print(",");
+      sdcard_file.println(HeatIndex);
+      sdcard_file.close();
+    }
 
     firstTemp = false;
   }
