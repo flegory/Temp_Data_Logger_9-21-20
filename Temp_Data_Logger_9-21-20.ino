@@ -38,7 +38,7 @@ const int  buttonPin = 2;
 
 unsigned long currentMillis = 0;
 unsigned long previousMillis = 0;
-int interval = 5000; //5 second interval
+unsigned int interval = 5000; //5 second interval
 
 float TempFahrenheit = 0.0;
 float Humidity = 0.0;
